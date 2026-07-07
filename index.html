@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI推薦診断 | AIは、あなたの店を推薦しているか - AI集客ラボ</title>
+<meta name="description" content="ChatGPT・Perplexity・GoogleのAI検索であなたのお店が推薦されているかを実測し、引用されるための改善策を提示します。地域ビジネス専門のAI検索引用診断。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#0B4FD6;
+  --blue-dark:#0940AC;
+  --navy:#0A1730;
+  --navy-2:#101F3D;
+  --white:#FFFFFF;
+  --gray-bg:#EFF2F8;
+  --line:#E3E7EE;
+  --line-dark:#28355200;
+  --line-navy:#243354;
+  --text:#131A26;
+  --muted:#5A6472;
+  --muted-dark:#9AA6BC;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN',-apple-system,sans-serif;color:var(--text);background:var(--white);line-height:1.9;font-size:15.5px;-webkit-font-smoothing:antialiased;overflow-x:clip}
+.container{max-width:1080px;margin:0 auto;padding:0 28px}
+section{padding:104px 0;border-top:1px solid var(--line)}
+.hero{border-top:none}
+h2{font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:900;color:var(--text);line-height:1.45;letter-spacing:.01em;margin-bottom:22px;width:fit-content;padding-bottom:12px;border-bottom:3px solid var(--blue)}
+.dark h2{border-bottom-color:#6C9FFF}
+.section-lead{color:var(--muted);max-width:640px;margin-bottom:60px}
+a{color:var(--blue)}
+.btn{display:inline-block;background:var(--blue);color:#fff;font-weight:700;font-size:.95rem;letter-spacing:.06em;padding:17px 46px;border-radius:3px;text-decoration:none;transition:background-color .2s,color .2s;cursor:pointer}
+.btn:hover{background:var(--blue-dark)}
+.btn:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.btn-outline{background:transparent;color:var(--text);border:1.5px solid var(--text)}
+.btn-outline:hover{background:var(--text);color:#fff}
+.btn-white{background:#fff;color:var(--navy)}
+.btn-white:hover{background:#D9E4FA;color:var(--navy)}
+
+/* header */
+header{background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;backdrop-filter:blur(6px)}
+.header-inner{display:flex;justify-content:space-between;align-items:center;gap:28px;height:66px;max-width:1080px;margin:0 auto;padding:0 28px}
+.gnav{display:flex;gap:26px;align-items:center;margin-left:auto}
+.gnav a{font-size:.84rem;font-weight:500;color:var(--muted);text-decoration:none;letter-spacing:.04em;transition:color .2s}
+.gnav a:hover{color:var(--blue)}
+.menu-btn{display:none;width:44px;height:44px;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;padding:0;flex-shrink:0}
+.menu-btn svg{width:24px;height:24px;stroke:var(--text)}
+.menu-btn .ic-close{display:none}
+header.nav-open .menu-btn .ic-open{display:none}
+header.nav-open .menu-btn .ic-close{display:block}
+@media (max-width:900px){
+  .header-inner{gap:10px;padding:0 18px}
+  .brand small{display:none}
+  .header-cta{padding:9px 16px;font-size:.78rem;margin-left:auto}
+  .menu-btn{display:flex;width:30px}
+  .gnav{display:none;position:absolute;top:66px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 14px 30px rgba(10,23,48,.12);flex-direction:column;align-items:stretch;gap:0;margin:0;padding:4px 0 10px}
+  header.nav-open .gnav{display:flex}
+  .gnav a{padding:13px 28px;font-size:.95rem;border-top:1px solid var(--line)}
+  .gnav a:first-child{border-top:none}
+}
+.brand{font-weight:900;color:var(--text);font-size:1.02rem;letter-spacing:.06em;text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand::before{content:"";width:12px;height:12px;background:var(--blue)}
+.brand small{font-weight:500;color:var(--muted);letter-spacing:.08em;font-size:.72rem;margin-left:2px}
+.header-cta{color:#fff;background:var(--blue);font-size:.82rem;font-weight:700;letter-spacing:.06em;text-decoration:none;padding:10px 24px;border-radius:3px;transition:background-color .2s;white-space:nowrap;flex-shrink:0}
+.header-cta:hover{background:var(--blue-dark)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:var(--navy);padding:130px 0 140px}
+.hero-bg{position:absolute;inset:0}
+.hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(8,17,38,.96) 0%,rgba(8,17,38,.88) 34%,rgba(8,17,38,.55) 62%,rgba(8,17,38,.62) 100%)}
+.net{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.net line{stroke:#6C9FFF;stroke-opacity:.5;stroke-width:1.2;stroke-dasharray:5 7;animation:dashflow 3.2s linear infinite}
+@keyframes dashflow{to{stroke-dashoffset:-48}}
+.net .node{fill:#8FB5FF}
+.net .ring{fill:none;stroke:#8FB5FF;stroke-width:1.4;transform-box:fill-box;transform-origin:center;animation:ping 2.8s ease-out infinite}
+@keyframes ping{0%{transform:scale(.4);opacity:.9}80%{transform:scale(2.4);opacity:0}100%{transform:scale(2.4);opacity:0}}
+.net .hub-core{fill:var(--blue)}
+.net .hub-label{fill:#fff;font-family:'Inter',sans-serif;font-weight:800;font-size:15px;letter-spacing:.05em}
+.chip{position:absolute;z-index:3;font-size:.72rem;font-weight:700;color:var(--navy);background:rgba(255,255,255,.94);border-radius:999px;padding:7px 15px 7px 28px;box-shadow:0 8px 22px rgba(0,0,0,.3);white-space:nowrap;animation:drift 5s ease-in-out infinite alternate}
+.chip::before{content:"";position:absolute;left:12px;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:var(--blue)}
+@keyframes drift{from{transform:translateY(0)}to{transform:translateY(-7px)}}
+.hero-content{position:relative;z-index:4;max-width:640px}
+.hero .kicker{color:#fff}
+.hero h1{font-size:clamp(2.1rem,4.8vw,3.4rem);font-weight:900;line-height:1.42;letter-spacing:.01em;margin-bottom:28px;color:#fff}
+.hero h1 .em{color:#7FADFF}
+.hero h1 .seg{display:inline-block}
+.hero .lead{color:#C9D4E8;max-width:560px;margin-bottom:44px;font-size:1rem}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.hero .btn-outline{color:#fff;border-color:rgba(255,255,255,.6)}
+.hero .btn-outline:hover{background:#fff;color:var(--navy)}
+
+/* issue */
+.issue{background:var(--gray-bg)}
+.col3{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:44px}
+.col{border-top:3px solid var(--text);padding-top:28px}
+.col .num{font-family:'Inter',sans-serif;font-size:2.2rem;font-weight:800;color:var(--blue);line-height:1;display:block;margin-bottom:18px}
+.col h3{font-size:1.12rem;font-weight:900;color:var(--text);margin-bottom:10px;letter-spacing:.02em}
+.col p{font-size:.92rem;color:var(--muted)}
+
+/* service */
+.svc-row{display:grid;grid-template-columns:90px 1fr 320px;gap:36px;padding:38px 0;border-top:1px solid var(--line);align-items:center}
+.svc-row:last-of-type{border-bottom:1px solid var(--line)}
+.svc-row .no{font-family:'Inter',sans-serif;font-size:2.2rem;font-weight:800;color:var(--blue);line-height:1.1;align-self:start}
+.svc-row h3{font-size:1.15rem;font-weight:900;color:var(--text);margin-bottom:10px;letter-spacing:.02em}
+.svc-row p{font-size:.93rem;color:var(--muted);max-width:560px}
+
+/* deliverable mocks */
+.mock{background:#fff;border:1px solid var(--line);border-top:3px solid var(--blue);border-radius:4px;padding:16px 18px;box-shadow:0 12px 28px rgba(10,23,48,.08)}
+.mock .m-label{font-family:'Inter',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:10px}
+.mock table{border-collapse:collapse;width:100%;font-size:.68rem}
+.mock th{font-weight:700;color:var(--muted);padding:4px 6px;border-bottom:2px solid var(--text);text-align:center;white-space:nowrap}
+.mock th:first-child{text-align:left}
+.mock td{padding:5px 6px;border-bottom:1px solid var(--line);color:var(--text);white-space:nowrap}
+.mock td:first-child{white-space:normal}
+.mock{overflow-x:auto}
+.mock tr:last-child td{border-bottom:none}
+.mock .hit{color:var(--blue);font-weight:900;text-align:center}
+.mock .miss{color:#C43D3D;font-weight:900;text-align:center}
+.mock .warn{color:#C7830E;font-weight:900;text-align:center}
+.check-list{list-style:none;font-size:.74rem}
+.check-list li{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line);color:var(--text)}
+.check-list li:last-child{border-bottom:none}
+.check-list .st-ok{color:var(--blue);font-weight:900}
+.check-list .st-ng{color:#C43D3D;font-weight:900}
+.check-list .st-wa{color:#C7830E;font-weight:900}
+.plan-list{list-style:none;font-size:.74rem}
+.plan-list li{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);color:var(--text)}
+.plan-list li:last-child{border-bottom:none}
+.plan-list .pno{flex-shrink:0;width:18px;height:18px;border-radius:50%;background:var(--navy);color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:.62rem;display:flex;align-items:center;justify-content:center}
+.plan-list .ptag{margin-left:auto;flex-shrink:0;font-size:.6rem;font-weight:700;padding:2px 8px;border-radius:999px}
+.plan-list .ptag.p1{background:var(--blue);color:#fff}
+.plan-list .ptag.p2{background:#E7EDF8;color:var(--blue)}
+.plan-list .ptag.p3{background:#F0F2F5;color:var(--muted)}
+.meet{display:flex;gap:14px;align-items:center}
+.meet .bars{display:flex;align-items:flex-end;gap:5px;height:64px}
+.meet .bars span{width:14px;background:#D8E0EE;border-radius:2px 2px 0 0}
+.meet .bars .b1{height:30%}
+.meet .bars .b2{height:55%}
+.meet .bars .b3{height:42%}
+.meet .bars .b4{height:85%;background:var(--blue)}
+.meet .m-txt{font-size:.72rem;color:var(--muted);line-height:1.7}
+.meet .m-txt b{color:var(--text)}
+.meet .badge{display:inline-block;background:var(--navy);color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.08em;padding:3px 10px;border-radius:999px;margin-top:6px}
+
+/* pricing */
+.pricing{background:var(--gray-bg)}
+.swipe-hint{display:none;font-size:.78rem;color:var(--muted);margin:-44px 0 18px}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px;align-items:stretch}
+.plan{background:#fff;border:1px solid var(--line);border-radius:4px;padding:46px 40px;display:flex;flex-direction:column;transition:box-shadow .2s,border-color .2s}
+.plan:hover{box-shadow:0 10px 28px rgba(10,23,48,.08);border-color:#C6D0E0}
+.plan.featured{background:var(--navy);border-color:var(--navy);color:#fff}
+.plan .flag{font-size:.7rem;display:block;margin-bottom:16px;min-height:1.9em}
+.flag-badge{display:inline-block;background:#FFB020;color:var(--navy);font-size:.82rem;font-weight:900;padding:6px 16px;border-radius:3px;letter-spacing:.04em}
+.plan .price-was{font-size:.85rem;color:var(--muted-dark);text-decoration:line-through;margin-top:14px}
+.plan .price-was + .price{margin-top:2px}
+.plan h3{font-size:1.05rem;font-weight:900;color:var(--text);letter-spacing:.03em}
+.plan.featured h3{color:#fff}
+.plan .price{font-family:'Inter',sans-serif;font-size:2.3rem;font-weight:800;color:var(--text);margin:22px 0 4px;letter-spacing:-.01em}
+.plan.featured .price{color:#fff}
+.plan .price small{font-family:'Noto Sans JP',sans-serif;font-size:.8rem;font-weight:500;color:var(--muted);margin-left:4px}
+.plan.featured .price small{color:var(--muted-dark)}
+.plan .price-note{font-size:.8rem;color:var(--muted);margin-bottom:28px;min-height:3em}
+.plan.featured .price-note{color:var(--muted-dark)}
+.plan ul{list-style:none;margin-bottom:38px}
+.plan li{font-size:.89rem;color:var(--text);padding:9px 0 9px 26px;border-bottom:1px solid var(--line);position:relative}
+.plan.featured li{color:#DCE3F0;border-bottom-color:var(--line-navy)}
+.plan li:last-child{border-bottom:none}
+.plan li::before{content:"";position:absolute;left:0;top:16px;width:14px;height:14px;background:var(--blue);mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3.2'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/contain no-repeat}
+.plan.featured li::before{background:#6C9FFF}
+.plan .btn{margin-top:auto;text-align:center;padding:15px 24px}
+
+/* next (backend services) */
+.next{background:var(--navy);color:#fff}
+.next h2{color:#fff}
+.next .section-lead{color:#CBD6EA;margin-bottom:48px}
+.next-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:24px}
+.next-card{background:var(--navy-2);border:1px solid var(--line-navy);border-radius:4px;padding:36px 32px}
+.next-card .tag{font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.2em;color:#8FB5FF;text-transform:uppercase;display:block;margin-bottom:14px}
+.next-card h3{font-size:1.18rem;font-weight:900;color:#fff;margin-bottom:8px}
+.next-card .range{font-family:'Inter',sans-serif;font-size:.92rem;font-weight:700;color:#8FB5FF;display:block;margin-bottom:12px}
+.next-card p{font-size:.95rem;color:#CBD6EA}
+.next-note{margin-top:36px;font-size:.92rem;color:#CBD6EA;border-left:3px solid var(--blue);padding-left:18px}
+
+/* flow */
+.flow-row{display:grid;grid-template-columns:70px 220px 1fr;gap:28px;padding:34px 0;border-top:1px solid var(--line);align-items:baseline}
+.flow-row:last-of-type{border-bottom:1px solid var(--line)}
+.flow-row .no{font-family:'Inter',sans-serif;font-size:1.15rem;font-weight:800;color:var(--blue)}
+.flow-row h3{font-size:1.02rem;font-weight:900;color:var(--text)}
+.flow-row .meta{display:block;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.08em;color:var(--muted);margin-top:4px;text-transform:uppercase}
+.flow-row p{font-size:.9rem;color:var(--muted)}
+
+/* faq */
+.faq{background:var(--gray-bg)}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-item:first-of-type{border-top:2px solid var(--text)}
+.faq-item summary{padding:28px 8px;font-weight:700;color:var(--text);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:.97rem}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"＋";font-size:1.1rem;color:var(--blue);font-weight:700;flex-shrink:0}
+.faq-item[open] summary::after{content:"−"}
+.faq-item .faq-body{padding:0 8px 30px;font-size:.9rem;color:var(--muted);max-width:740px}
+
+/* operator */
+.operator-grid{display:grid;grid-template-columns:300px 1fr;gap:60px}
+.operator-grid h2{margin-bottom:0}
+.avatar{width:170px;height:170px;border-radius:50%;background:var(--gray-bg);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin-top:36px}
+.avatar svg{width:78px;height:78px;stroke:#AAB4C4}
+.avatar-note{font-size:.78rem;color:var(--muted);margin-top:12px}
+.operator-body p{font-size:.93rem;color:var(--text);margin-bottom:18px;max-width:620px}
+.operator-body .principle{font-size:1.12rem;font-weight:900;color:var(--text);border-left:4px solid var(--blue);padding-left:22px;margin-top:30px;line-height:1.8}
+
+/* contact / form */
+.contact{background:var(--gray-bg)}
+.form-wrap{background:#fff;border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:4px;padding:16px;max-width:760px}
+.form-wrap iframe{width:100%;height:1450px;border:none;display:block}
+.form-fallback{margin-top:16px;font-size:.85rem;color:var(--muted)}
+
+/* final cta */
+.final-cta{background:var(--navy);color:#fff;padding:96px 0}
+.final-cta h2{color:#fff;font-size:clamp(1.8rem,3.8vw,2.4rem)}
+.final-cta p{color:var(--muted-dark);max-width:580px;margin-bottom:44px}
+
+footer{background:var(--navy);color:#6E7A93;font-size:.78rem;padding:34px 0;border-top:1px solid var(--line-navy);letter-spacing:.04em}
+footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+footer a{color:var(--muted-dark);text-decoration:none}
+footer a:hover{color:#6C9FFF}
+
+/* PC向けの本文・小見出し拡大 */
+@media (min-width:961px){
+  .col h3{font-size:1.35rem}
+  .col p{font-size:1rem}
+  .svc-row h3{font-size:1.35rem}
+  .svc-row p{font-size:1rem}
+  .next-card h3{font-size:1.35rem}
+  .next-card .range{font-size:1rem}
+  .next-card p{font-size:1rem}
+  .next-note{font-size:1rem}
+  .flow-row h3{font-size:1.2rem}
+  .flow-row p{font-size:1rem}
+  .plan h3{font-size:1.2rem}
+  .plan li{font-size:.95rem}
+  .faq-item summary{font-size:1.08rem}
+  .faq-item .faq-body{font-size:.97rem}
+  .operator-body p{font-size:1rem}
+}
+@media (max-width:1240px){
+  .chip{display:none}
+}
+@media (max-width:960px){
+  .net{opacity:.6}
+  .svc-row{grid-template-columns:90px 1fr}
+  .svc-row .mock{grid-column:2;max-width:380px}
+}
+@media (max-width:720px){
+  section{padding:68px 0}
+  .hero{padding:80px 0 88px}
+  .hero h1{font-size:1.68rem}
+  .hero .lead{font-size:.95rem}
+  .svc-row{grid-template-columns:64px 1fr;gap:20px}
+  .svc-row .no{font-size:1.6rem}
+  .svc-row .mock{grid-column:2;max-width:none}
+  .flow-row{grid-template-columns:44px 1fr;gap:18px}
+  .flow-row p{grid-column:2}
+  .swipe-hint{display:block}
+  .plans{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin:0 -28px;padding:4px 28px 18px;-webkit-overflow-scrolling:touch}
+  .plan{flex:0 0 82%;scroll-snap-align:center;padding:36px 28px}
+  .plan .price-note{min-height:0}
+  .operator-grid{grid-template-columns:1fr;gap:28px}
+  .form-wrap iframe{height:1600px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="#" class="brand">AI集客ラボ<small>AI推薦診断</small></a>
+    <nav class="gnav" aria-label="ページ内メニュー">
+      <a href="#issue">課題</a>
+      <a href="#service">サービス内容</a>
+      <a href="#pricing">料金</a>
+      <a href="#next">診断のその先</a>
+      <a href="#flow">進め方</a>
+      <a href="#faq">FAQ</a>
+      <a href="#operator">運営者</a>
+    </nav>
+    <a href="#contact" class="header-cta">診断を申し込む</a>
+    <button class="menu-btn" type="button" aria-label="メニューを開閉" aria-expanded="false">
+      <svg class="ic-open" viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="ic-close" viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <!-- Photo: Unsplash License (commercial use OK, no attribution required) -->
+    <img src="assets/city.jpg" alt="">
+  </div>
+  <svg class="net" viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <line x1="820" y1="200" x2="1090" y2="380"/>
+    <line x1="1310" y1="180" x2="1090" y2="380"/>
+    <line x1="920" y1="620" x2="1090" y2="380"/>
+    <line x1="1240" y1="640" x2="1090" y2="380"/>
+    <line x1="1390" y1="440" x2="1090" y2="380"/>
+    <circle class="ring" cx="820" cy="200" r="10"/>
+    <circle class="node" cx="820" cy="200" r="5"/>
+    <circle class="ring" cx="1310" cy="180" r="10" style="animation-delay:.7s"/>
+    <circle class="node" cx="1310" cy="180" r="5"/>
+    <circle class="ring" cx="920" cy="620" r="10" style="animation-delay:1.4s"/>
+    <circle class="node" cx="920" cy="620" r="5"/>
+    <circle class="ring" cx="1240" cy="640" r="10" style="animation-delay:2.1s"/>
+    <circle class="node" cx="1240" cy="640" r="5"/>
+    <circle class="ring" cx="1390" cy="440" r="10" style="animation-delay:1s"/>
+    <circle class="node" cx="1390" cy="440" r="5"/>
+    <circle class="hub-core" cx="1090" cy="380" r="26"/>
+    <circle class="ring" cx="1090" cy="380" r="30" style="animation-delay:.3s"/>
+    <text class="hub-label" x="1090" y="385" text-anchor="middle" dominant-baseline="middle">AI</text>
+  </svg>
+  <span class="chip" style="top:16%;left:58%" aria-hidden="true">この街でおいしいラーメン屋は？</span>
+  <span class="chip" style="top:72%;left:60%;animation-delay:1.6s" aria-hidden="true">評判のいい歯医者さんは？</span>
+  <span class="chip" style="top:44%;right:2%;animation-delay:.8s" aria-hidden="true">近くで人気の美容室は？</span>
+  <div class="container">
+    <div class="hero-content">
+      <h1><span class="seg">AIは、あなたの店を</span><span class="seg"><span class="em">推薦</span>しているか</span></h1>
+      <p class="lead">街の人々は今日も、AIに「おすすめの店」を尋ねています。その回答の中にあなたの店の名前があるか。それを実測するのが、AI推薦診断です。</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn">診断を申し込む</a>
+        <a href="#service" class="btn btn-outline">サービス内容を見る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="issue" id="issue">
+  <div class="container">
+    <h2>「検索されない時代」が、<br>静かに始まっている</h2>
+    <p class="section-lead">検索して一覧から選ぶ行動は、AIに聞いて答えだけを受け取る行動に置き換わりつつあります。この変化は、従来のSEO対策の延長では捉えられません。</p>
+    <div class="col3">
+      <div class="col">
+        <span class="num">01</span>
+        <h3>AIは一覧を出さない</h3>
+        <p>検索結果には10件が並びますが、AIは2〜3店しか名前を挙げません。そこに入らなければ、比較の土俵に乗ることすらできません。</p>
+      </div>
+      <div class="col">
+        <span class="num">02</span>
+        <h3>不在に、自分では気づけない</h3>
+        <p>AIに引用されていない状態は、外からは見えません。「最近ネット経由の問い合わせが減った」が、多くの場合最初のサインです。</p>
+      </div>
+      <div class="col">
+        <span class="num">03</span>
+        <h3>対策には型がある</h3>
+        <p>AIが参照しやすい情報の構造・書き方には共通のパターンがあります。原因を特定できれば、打ち手は明確になります。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="service">
+  <div class="container">
+    <h2>診断で提供するもの</h2>
+    <p class="section-lead">貴店の商圏・業種に合わせて設計した20の質問を、ChatGPT・Perplexity・GoogleのAI検索に実際に投げ、回答を採取・分析します。</p>
+    <div class="svc-row">
+      <span class="no">01</span>
+      <div>
+        <h3>引用状況マップ</h3>
+        <p>20の質問×3つのAIの回答を一覧化し、自社と競合がそれぞれ何回・どのような文脈で推薦されているかを可視化します。回答の揺らぎを考慮し、各質問は複数回測定します。</p>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <span class="m-label">サンプル</span>
+        <table>
+          <tr><th>AIへの質問</th><th>ChatGPT</th><th>Perplexity</th><th>Google</th></tr>
+          <tr><td>◯◯市 △△ おすすめ</td><td class="miss">×</td><td class="hit">◯</td><td class="miss">×</td></tr>
+          <tr><td>◯◯市 △△ 評判</td><td class="miss">×</td><td class="miss">×</td><td class="miss">×</td></tr>
+          <tr><td>△△の悩み 相談したい</td><td class="hit">◯</td><td class="hit">◯</td><td class="miss">×</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="svc-row">
+      <span class="no">02</span>
+      <div>
+        <h3>引用されない原因の特定</h3>
+        <p>サイトの構造化データ、FAQの有無、営業情報の整合性、第三者からの言及数。AIが貴店を参照できない原因を、チェックリストに基づいて具体的に特定します。</p>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <span class="m-label">サイト診断の例</span>
+        <ul class="check-list">
+          <li>構造化データ（店舗情報）<span class="st-ng">未設置</span></li>
+          <li>FAQページ<span class="st-ng">なし</span></li>
+          <li>店舗情報の表記ゆれ<span class="st-wa">2件</span></li>
+          <li>AIが読む情報源への掲載<span class="st-ok">1/4</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="svc-row">
+      <span class="no">03</span>
+      <div>
+        <h3>優先度つき改善計画</h3>
+        <p>何から直せば効果が見込めるかを、優先度と作業量つきでリスト化します。自社で対応する項目と、実装まで委託する項目を分けてお渡しします。</p>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <span class="m-label">改善計画の例</span>
+        <ul class="plan-list">
+          <li><span class="pno">1</span>AIが読む情報源に掲載する<span class="ptag p1">最優先</span></li>
+          <li><span class="pno">2</span>FAQページを新設する<span class="ptag p2">委託可</span></li>
+          <li><span class="pno">3</span>料金をサイトに明記する<span class="ptag p3">自社で可能</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="svc-row">
+      <span class="no">04</span>
+      <div>
+        <h3>報告会（60分・オンライン）</h3>
+        <p>レポートを送って終わりにはしません。経営者ご本人に、専門用語を使わず「明日から何をするか」まで口頭でご説明します。</p>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <span class="m-label">報告会の進行</span>
+        <div class="meet">
+          <div class="bars"><span class="b1"></span><span class="b2"></span><span class="b3"></span><span class="b4"></span></div>
+          <div class="m-txt">結果の説明 → 原因 → <b>明日から何をするか</b><br><span class="badge">オンライン・60分</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="container">
+    <h2>料金</h2>
+    <p class="section-lead">まず診断で現状を把握することを推奨します。すべてオンライン完結・全国対応。表示は税込です。</p>
+    <p class="swipe-hint">横にスワイプすると3つのプランを比較できます</p>
+    <div class="plans">
+      <div class="plan featured">
+        <span class="flag"><span class="flag-badge">モニター特別価格・先着5社</span></span>
+        <h3>AI推薦診断</h3>
+        <p class="price-was">通常価格 110,000円</p>
+        <p class="price">55,000<small>円</small></p>
+        <p class="price-note">事例掲載（匿名可）にご協力いただける先着5社だけの特別価格です。</p>
+        <ul>
+          <li>20クエリ×3AIの引用状況調査</li>
+          <li>競合比較つき診断レポート</li>
+          <li>優先度つき改善計画</li>
+          <li>報告会60分</li>
+          <li>納期2週間</li>
+        </ul>
+        <a href="#contact" class="btn">診断を申し込む</a>
+      </div>
+      <div class="plan">
+        <span class="flag"></span>
+        <h3>診断＋改善実装</h3>
+        <p class="price">220,000<small>円〜</small></p>
+        <p class="price-note">診断結果にもとづき、サイト側の改善を実装まで代行します。</p>
+        <ul>
+          <li>診断プランの全内容</li>
+          <li>構造化データの実装</li>
+          <li>FAQ・店舗情報ページの整備</li>
+          <li>Googleビジネスプロフィール最適化</li>
+        </ul>
+        <a href="#contact" class="btn btn-outline">相談する</a>
+      </div>
+      <div class="plan">
+        <span class="flag"></span>
+        <h3>月次モニタリング</h3>
+        <p class="price">33,000<small>円 / 月</small></p>
+        <p class="price-note">改善後の引用状況を毎月同一条件で定点観測します。</p>
+        <ul>
+          <li>同一クエリでの引用状況レポート</li>
+          <li>競合の変化の追跡</li>
+          <li>毎月の改善提案1件</li>
+          <li>いつでも解約可能</li>
+        </ul>
+        <a href="#contact" class="btn btn-outline">相談する</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="next dark" id="next">
+  <div class="container">
+    <h2>診断のその先も、伴走できます</h2>
+    <p class="section-lead">AI推薦診断は、それ単体で完結するサービスです。そのうえで、レポートで見えた課題を「直したい」「社内でできるようになりたい」と思われた場合は、同じ担当者がそのまま支援できます。</p>
+    <div class="next-grid">
+      <div class="next-card">
+        <h3>AI活用研修</h3>
+        <span class="range">半日 80,000円 / 1日 150,000円</span>
+        <p>座学ではなく、貴社の実業務を1つ選んでその場でAI化する実務型研修。持ち帰ってすぐ使える状態で終えます。</p>
+      </div>
+      <div class="next-card">
+        <h3>AI導入・内製化支援</h3>
+        <span class="range">300,000円〜 + 月額サポート</span>
+        <p>業務の棚卸しから環境構築、社内で使いこなすための研修・伴走まで。外注し続けない「卒業型」の導入支援です。</p>
+      </div>
+    </div>
+    <p class="next-note">いずれも診断結果を起点にご提案します。売り込みはしません。診断だけで完結いただいて構いません。</p>
+  </div>
+</section>
+
+<section id="flow">
+  <div class="container">
+    <h2>進め方</h2>
+    <p class="section-lead">お申し込みから2週間でレポートをお渡しします。ご用意いただくものはありません。</p>
+    <div class="flow-row">
+      <span class="no">01</span>
+      <h3>お申し込み<span class="meta">1日目</span></h3>
+      <p>ページ下部のフォームから店舗名とサイトURLをお送りください。翌営業日までに日程をご案内します。</p>
+    </div>
+    <div class="flow-row">
+      <span class="no">02</span>
+      <h3>ヒアリング<span class="meta">30分・オンライン</span></h3>
+      <p>商圏、注力メニュー、競合と感じている店を伺い、診断する質問を設計します。</p>
+    </div>
+    <div class="flow-row">
+      <span class="no">03</span>
+      <h3>調査・分析<span class="meta">約2週間</span></h3>
+      <p>3つのAIで回答を採取・分析し、レポートを作成します。この間の作業はすべて当方で行います。</p>
+    </div>
+    <div class="flow-row">
+      <span class="no">04</span>
+      <h3>報告会<span class="meta">60分・オンライン</span></h3>
+      <p>結果と改善計画をご説明します。実装のご依頼はその後にご検討ください。</p>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="container">
+    <h2>よくあるご質問</h2>
+    <p class="section-lead"></p>
+    <details class="faq-item">
+      <summary>診断すれば、必ずAIに推薦されるようになりますか。</summary>
+      <div class="faq-body">いいえ。AIの回答を意図的に操作することは誰にもできません。「必ず引用させる」と保証する業者があれば、むしろ注意が必要です。当サービスが約束するのは、現状の正確な把握と、引用される可能性を高めるための正しい打ち手です。効果は月次モニタリングで測定できる形にしています。</div>
+    </details>
+    <details class="faq-item">
+      <summary>どのような業種が対象ですか。</summary>
+      <div class="faq-body">「地域名＋業種」で探されるビジネス全般です。カーコーティング・自動車整備、クリニック、士業、リフォーム、美容室などを想定しています。全国どこでもオンラインで対応します。</div>
+    </details>
+    <details class="faq-item">
+      <summary>SEO対策やMEO対策とは何が違うのですか。</summary>
+      <div class="faq-body">SEOは検索結果の一覧で上位に出るための施策、MEOは地図で上位に出るための施策です。当サービスは「AIの回答文の中で名前を挙げてもらう」ための診断と改善であり、見るポイントが異なります。既存のSEO・MEO施策と併用できます。</div>
+    </details>
+    <details class="faq-item">
+      <summary>パソコンが苦手でも大丈夫ですか。</summary>
+      <div class="faq-body">問題ありません。報告会では専門用語を使わずにご説明し、改善計画も「自社でできること」と「委託が必要なこと」を分けてお渡しします。</div>
+    </details>
+    <details class="faq-item">
+      <summary>診断結果や社内情報の取り扱いはどうなりますか。</summary>
+      <div class="faq-body">診断結果・ヒアリング内容は外部に公開しません。事例としての掲載は、匿名化した上で事前に同意をいただいた場合に限ります。</div>
+    </details>
+  </div>
+</section>
+
+<section id="operator">
+  <div class="container">
+    <div class="operator-grid">
+      <div>
+        <h2>運営者</h2>
+        <div class="avatar" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="8" r="4"/></svg>
+        </div>
+        <p class="avatar-note">写真は準備中です</p>
+      </div>
+      <div class="operator-body">
+        <p>AI集客ラボは、東証プライム上場IT企業のPMを務める運営者による、地域ビジネス専門のデジタル集客支援です。本業では開発案件のリードとマーケティングチームのリードを担当し、社内のLLMO・AIO（AI検索最適化）開発プロジェクトもリードしています。</p>
+        <p>個人では、toB・toCの各業態でマーケティング・業務改善・経営コンサルティングを支援してきました。実店舗向けの料金シミュレーターや、サービス業の診断ツールの開発によるリード獲得促進を手がけ、いずれもサイトで現在も運用されています。作って終わりではなく、現場で使われ続けるものを届けることを信条としています。</p>
+        <p class="principle">効果を誇張せず、<br>確かめられることだけを約束します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="container">
+    <h2>お申し込み・ご相談</h2>
+    <p class="section-lead">下のフォームからお送りください。翌営業日までにメールでご連絡します。料金や内容へのご質問だけでも歓迎です。</p>
+    <div class="form-wrap">
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSenoTzUPnmPRFZ36EtVqTwQxrKByHyBA85Vqb1OJR3Z1PapsQ/viewform?embedded=true" title="AI推薦診断 お申し込み・ご相談フォーム" loading="lazy">読み込んでいます…</iframe>
+    </div>
+    <p class="form-fallback">フォームが表示されない場合は<a href="https://docs.google.com/forms/d/e/1FAIpQLSenoTzUPnmPRFZ36EtVqTwQxrKByHyBA85Vqb1OJR3Z1PapsQ/viewform" rel="noopener">こちらから開いてください</a>。</p>
+  </div>
+</section>
+
+<section class="final-cta dark">
+  <div class="container">
+    <h2>まず、現状を知ることから</h2>
+    <p>貴店がAIにどう扱われているか。先行モニター枠（先着5社・55,000円）でお確かめください。</p>
+    <a href="#contact" class="btn btn-white">フォームに戻る</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>© AI集客ラボ｜AI推薦診断</p>
+    <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSenoTzUPnmPRFZ36EtVqTwQxrKByHyBA85Vqb1OJR3Z1PapsQ/viewform" rel="noopener">お問い合わせ</a></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var header=document.querySelector('header');
+  var btn=document.querySelector('.menu-btn');
+  btn.addEventListener('click',function(){
+    var open=header.classList.toggle('nav-open');
+    btn.setAttribute('aria-expanded',open?'true':'false');
+  });
+  document.querySelectorAll('.gnav a').forEach(function(a){
+    a.addEventListener('click',function(){
+      header.classList.remove('nav-open');
+      btn.setAttribute('aria-expanded','false');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
